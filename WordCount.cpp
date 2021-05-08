@@ -3,9 +3,9 @@
 #include<stdlib.h>
 char c;
 int len=0;
-char buffer[5000];
+char data[1000];
 
-int CountW(char* file)//返回文件词的数目 
+int CountWords(char* file)//单词计数 
 {
     FILE* fp;
     int Words = 0;
@@ -14,12 +14,12 @@ int CountW(char* file)//返回文件词的数目
         printf("Failure to open it\n");
         exit(0);
     }
-    while(fgets(buffer, 1000, fp) != NULL)
+    while(fgets(data, 1000, fp) != NULL)
     {
-        len = strlen(buffer);
+        len = strlen(data);
         for (int i = 0; i < len; i++)
         {
-            c = buffer[i];
+            c = data[i];
             if (c == ' ' || c == ',')
             {
                 Words++;	 
@@ -30,7 +30,7 @@ int CountW(char* file)//返回文件词的数目
         printf("WordNum：%d\n", Words);
     }
 }
-int CountC(char* file) //返回文件的字符数 
+int CountChars(char* file) //字符计数 
 {
     FILE* fp;
     int Chars = 0;
@@ -41,15 +41,13 @@ int CountC(char* file) //返回文件的字符数
         printf("Faliure to open it\n");
         exit(0);
     }
-    while(fgets(buffer, 1000, fp) != NULL){
-    	len = strlen(buffer);
-    	
+    while(fgets(data, 1000, fp) != NULL){
+    	len = strlen(data);
         for (int i = 0; i < len; i++){
-        	c = buffer[i];
+        	c = data[i];
             Chars++;	    
 		}
 	}
-
     fclose(fp);
     printf("CharNum:%d ", Chars-1);
 }
@@ -67,11 +65,11 @@ int main(int argc, char* argv[])
         }
         else if (!strcmp(argv[1], "-w"))
         {
-            CountW(argv[2]);
+            CountWords(argv[2]);
         }
         else if (!strcmp(argv[1], "-c"))
         {
-            CountC(argv[2]);
+            CountChars(argv[2]);
         }
         scanf("%s%s%s", argv[0], argv[1], argv[2]);
     }
